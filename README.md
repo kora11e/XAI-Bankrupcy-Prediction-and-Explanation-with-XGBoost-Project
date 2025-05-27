@@ -7,13 +7,17 @@
 2. Open the project in your desired code editor. 
 3. In the console move to folder
 4. In Conda console create the environment with command:
+
 ```python
 conda create --name <your-name>
 ```
+
 5. Run following command to isntall packages from requirements.txt
+6. 
 ```python
 conda install --file requirements.txt
 ```
+
 6. Run individual Jupyter Notebook blocks to display the code results.
   
 <h2>Project Explanation</h2>
