@@ -24,24 +24,38 @@ conda install --file requirements.txt
 
 <h3>Features:</h3>
 
-Text Classification:
+Data processing:
 
-The project loads a dataset of text reviews (presumably for sentiment analysis).
+The project loads a big dataset that is later processed into the more appropriate set of features.
 
-Uses a machine learning model to classify texts.
+It uses a machine learning model to classify the set of values for bankruptcy.
 
-TF-IDF Vectorization:
+Data Modeling:
 
-Text data is vectorized using TfidfVectorizer, converting raw text into numerical features.
+Columnar data is parsed into ensemble model and then optimized using Bayesian Search Space to determine the best features.
+
+Data Explanation:
+
+Data is explained using multiple etchniques to better understand how it changes over time, instance and with/without inclusion of one feature.
 
 Model Training:
 
-A Logistic Regression classifier is trained on the vectorized data.
+A XGBoost Regression is trained on the scaled data coming from bankruptcy dataset.
 
-The model learns to predict the sentiment of text inputs.
+The model learns to predict the probability of comany going bankrupt.
 
-Explainability with LIME:
+<h2>Explainability with LIME and GIME:</h2>
 
-LIME (Local Interpretable Model-agnostic Explanations) is used to explain individual predictions.
+<h3>LIME (Local Interpretable Model-agnostic Explanations) is used to explain individual predictions. </h3>
 
 Explains why a particular text was classified in a certain way by highlighting key words.
+
+<h3>SHAP (Shapley Additive Explanations) is used to explain impact of data on particular instance.</h3>
+
+It calculates how the prediction would change if a specific feature were included or excluded, across all possible combinations of features.
+
+Each feature gets a SHAP value:
+
+Positive SHAP value → pushes the prediction higher.
+
+Negative SHAP value → pushes the prediction lower.
