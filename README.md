@@ -59,3 +59,15 @@ Each feature gets a SHAP value:
 Positive SHAP value → pushes the prediction higher.
 
 Negative SHAP value → pushes the prediction lower.
+
+
+<h2>Docker Container Access </h2>
+If you have Docker, you can access the model via fast api with post method.
+
+'''python
+docker pull <your_username>/bankruptcy-prediction-api:v1
+'''
+
+'''python
+docker run -d -p 80:80 <your_username>/bankruptcy-prediction-api:v1
+'''
