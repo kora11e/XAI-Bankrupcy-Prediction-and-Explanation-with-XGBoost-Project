@@ -3,6 +3,7 @@
 <h2>The project incorporates techniques of Explainable AI such as Shapley Additive Explanations, Local Interpretable Model-Agnostic Explanations and Partial Dependency Plots.</h2>
 
 <h2>Instructions to run the code with Conda Environment</h2>
+
 1. Download the project as zip in upper right corner of clone the project on your machine.
 2. Open the project in your desired code editor. 
 3. In the console move to folder
@@ -13,7 +14,7 @@ conda create --name <your-name>
 ```
 
 5. Run following command to isntall packages from requirements.txt
-6. 
+
 ```python
 conda install --file requirements.txt
 ```
