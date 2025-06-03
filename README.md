@@ -13,13 +13,19 @@
 conda create --name <your-name>
 ```
 
-5. Run following command to isntall packages from requirements.txt
+5. Activate environment
+
+```python
+activate <your-name>
+```
+
+6. Run following command to isntall packages from requirements.txt
 
 ```python
 conda install --file requirements.txt
 ```
 
-6. Run individual Jupyter Notebook blocks to display the code results.
+7. Run individual Jupyter Notebook blocks to display the code results.
   
 <h2>Project Explanation</h2>
 
