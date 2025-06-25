@@ -79,4 +79,16 @@ docker pull <your_username>/bankruptcy-prediction-api:v1
 docker run -d -p 80:80 <your_username>/bankruptcy-prediction-api:v1
 '''
 
-<h2>Dhango Frontend user access</h2>
+<h2>Django Frontend user access</h2>
+You can access the frontend interface by going to the subfolder frontend/bank and running following command:
+
+'''python
+python manage.py runserver
+'''
+
+After a couple of seconds the project will open. Then follow the console link or manually open local address http://127.0.0.1:8000/bankruptcy/
+The user interface contains 4 pages:
+1. Home page
+2. Prediction page where you can test the model with your own data
+3. Contact page with the email address
+4. About page with information about the project
