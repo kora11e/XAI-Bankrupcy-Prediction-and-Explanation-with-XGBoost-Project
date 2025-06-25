@@ -1,0 +1,8 @@
+xgboost
+fastapi
+uvicorn
+pandas
+numpy
+pydantic
+shap
+matplotlib

@@ -1,0 +1,31 @@
+curl -X 'POST' \
+    'http://127.0.0.1:80/predict' \
+    -H 'Content-Type: application-json' \
+    -d '{
+    ' Operating Profit Rate': 1.2,
+    ' Operating Expense Rate': 1.2,
+    ' Interest-bearing debt interest rate': 1.2,
+    ' Revenue Per Share (Yuan ¥)': 1.2,
+    ' Realized Sales Gross Profit Growth Rate': 1.2,
+    ' Operating Profit Growth Rate': 1.2,
+    ' Continuous Net Profit Growth Rate': 1.2,
+    ' Current Ratio': 1.2,
+    ' Interest Expense Ratio': 1.2,
+    ' Total debt/Total net worth': 1.2,
+    ' Long-term fund suitability ratio (A)': 1.2,
+    ' Accounts Receivable Turnover': 1.2,
+    ' Average Collection Days': 1.2,
+    ' Inventory Turnover Rate (times)': 1.2,
+    ' Net Worth Turnover Rate (times)': 1.2,
+    ' Quick Assets/Current Liability': 1.2,
+    ' Inventory/Working Capital': 1.2,
+    ' Inventory/Current Liability': 1.2,
+    ' Current Liabilities/Liability': 1.2,
+    ' Long-term Liability to Current Assets': 1.2,
+    ' Current Asset Turnover Rate': 1.2,
+    ' Cash Turnover Rate': 1.2,
+    ' No-credit Interval': 1.2,
+    ' Degree of Financial Leverage (DFL)': 1.2,
+    ' Interest Coverage Ratio (Interest expense to EBIT)': 1.2,
+    ' Net Income Flag': 1.2
+    }'

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{%block title %} {%endblock title %}
+
+{%block body %} 
+<section class="text-gray-600 body-font -my-9">
+    <div class='container px-5 py-24 mx-auto'>
+        <div class='flex flex-col text-center w-full mb-12'>
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Prediction of bankruptcy using XGBoost model</h1>
+            <p class="mb-8 leading-relaxed">Enter the values in empty fields and confirm. Notice that missing value will default to 0.</p>
+        </div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Operating Profit Rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="opr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Operating Expense Rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="oer" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Interest-Bearing debt interest rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="ibdir" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Revenue per Share (absolute)</label>
+                    <input type="number" step=any id="hero-field" value="0" name="rps" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Realized Sales Gross Profit Growth Rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="rsgpgr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Operating Profit Growth Rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="opgr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Continuous Net Profit Growth Rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="cnpgr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Current Ratio</label>
+                    <input type="number" step=any id="hero-field" value="0" name="cr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Interest Expense Ratio</label>
+                    <input type="number" step=any id="hero-field" value="0" name="ier" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Total debt/Total net worth</label>
+                    <input type="number" step=any id="hero-field" value="0" name="tdtnw" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Long-term fund suitability ratio</label>
+                    <input type="number" step=any id="hero-field" value="0" name="ltfsr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Accounts Receivable Turnover</label>
+                    <input type="number" step=any id="hero-field" value="0" name="art" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Average Collection Days</label>
+                    <input type="number" step=any id="hero-field" value="0" name="acd" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Inventory Turnover Rate (times)</label>
+                    <input type="number" step=any id="hero-field" value="0" name="itr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Net Worth Turnover Rate (times)</label>
+                    <input type="number" step=any id="hero-field" value="0" name="nwtr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="flex lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Quick Assets/Current Liability</label>
+                    <input type="number" step=any id="hero-field" value="0" name="qacl" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Inventory/Working Capital</label>
+                    <input type="number" step=any id="hero-field" value="0" name="iwc" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Inventory/Current Liability</label>
+                    <input type="number" step=any id="hero-field" value="0" name="icl" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Current Liabilities/Liability</label>
+                    <input type="number" step=any id="hero-field" value="0" name="cll" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Long-term Liability to Current Assets</label>
+                    <input type="number" step=any id="hero-field" value="0" name="ltlca" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Current Asset Turnover Rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="catr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Cash Turnover Rate</label>
+                    <input type="number" step=any id="hero-field" value="0" name="ctr" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">No-credit Interval</label>
+                    <input type="number" step=any id="hero-field" value="0" name="nci" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Degree of Financial Leverage (DFL)</label>
+                    <input type="number" step=any id="hero-field" value="0" name="dfl" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                    <label for="hero-field" class="leading-7 text-sm text-gray-600">Interest Coverage Ratio (Interest expense to EBIT)</label>
+                    <input type="number" step=any id="hero-field" value="0" name="icrebit" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+            </div>
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                    <div class="relative mr-4 lg:w-full xl:w-1/2 w-2/4">
+                        <label for="hero-field" class="leading-7 text-sm text-gray-600">Net Income Flag</label>
+                        <input type="number" id="hero-field" value="0" name="nif" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-200 focus:bg-transparent focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                        <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Analyze</button>
+                    </div>
+                    <p class="text-sm mt-2 text-gray-500 mb-8 w-full">Confirm to see results</p>
+            </div>
+        </form>
+    </div>
+</section>
+
+<br><h1><b>
+    {% if output %}
+     The probability of the company going bankrupt is: {{output}}
+    
+    {% endif %}
+</b></h1>
+
+{%endblock body %}

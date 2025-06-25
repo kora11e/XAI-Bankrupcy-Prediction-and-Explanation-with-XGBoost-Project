@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{%block title %} 
+
+<div class="px-4 py-5 my-5 text-center"> <img class="d-block mx-auto mb-4" src='../images/hand.png' alt="hand icon" width="72" height="57"> <h1 class="display-5 fw-bold text-body-emphasis">Bankruptcy Prediction Model</h1> <div class="col-lg-6 mx-auto"> <p class="lead mb-4">The project incorporates techniques of Explainable AI such as Shapley Additive Explanations, Local Interpretable Model-Agnostic Explanations and Partial Dependency Plots.</p> <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"> <a href="{% url 'prediction' %}"><button type="button" class="btn btn-primary btn-lg px-4 gap-3">Get Started!</button></a> </div> </div> </div>
+
+{%endblock title %}
