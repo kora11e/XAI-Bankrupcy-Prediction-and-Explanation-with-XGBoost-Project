@@ -78,3 +78,5 @@ docker pull <your_username>/bankruptcy-prediction-api:v1
 '''python
 docker run -d -p 80:80 <your_username>/bankruptcy-prediction-api:v1
 '''
+
+<h2>Dhango Frontend user access</h2>
